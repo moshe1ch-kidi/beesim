@@ -1,0 +1,5 @@
+{
+  "name": "Bee-Bot Simulator",
+  "description": "An educational programming game where you sequence commands to navigate a bee robot through a grid.",
+  "requestFramePermissions": []
+}
