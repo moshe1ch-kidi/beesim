@@ -12,6 +12,11 @@ permissions:
 jobs:
   build_site:
     runs-on: ubuntu-latest
+    # עדכון לגרסה 24 כדי למנוע את האזהרה
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,15 +24,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24 # שימוש בגרסה הכי עדכנית
 
       - name: Install dependencies
+        # הסרנו את ה-cache כדי שלא יחפש קובץ lock שלא קיים
         run: npm install
 
       - name: Build
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npm run build
 
       - name: Upload Artifacts
