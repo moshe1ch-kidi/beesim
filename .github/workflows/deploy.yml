@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # ודא שזה שם הענף הראשי שלך
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -26,12 +26,13 @@ jobs:
         run: npm install
 
       - name: Build
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npm run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # ב-Vite תיקיית הפלט היא dist
           path: './dist'
 
   deploy:
